@@ -10,7 +10,7 @@ const ibmPlexSerif = IBM_Plex_Serif({
 
 export const metadata: Metadata = {
   title: "Trust Bank",
-  description: "Trust is a mordern banking platform for everyone to experience.",
+  description: "Trust Bank is a functional online banking platform with real time data and global usage.",
   icons: {
     icon: "/icons/logo.svg",
   },

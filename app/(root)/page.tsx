@@ -3,7 +3,6 @@ import HeaderBox from '@/components/HeaderBox'
 
 const Home = () => {
   const loggedIn = { firstName: 'Anthony'};
-}
   return (
     <section className='home'>
       <div className='home-content'>
@@ -24,6 +23,7 @@ const Home = () => {
       </div>
     </section>
   )
-
+  }
+  import TotalBalanceBox from '@/components/TotalBalanceBox';
 
 export default Home

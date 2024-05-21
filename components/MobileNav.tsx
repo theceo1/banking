@@ -29,7 +29,7 @@ const MobileNav = ({ user }: MobileNavProps) => {
             className="cursor-pointer"
           />
         </SheetTrigger>
-        <SheetContent className="border-none bg-white">
+        <SheetContent side="left" className="border-none bg-white">
           <Link href="/" className="cursor-pointer flex items-center gap-1 px-4">
             <Image
               src="/icons/logo.svg"
@@ -37,8 +37,7 @@ const MobileNav = ({ user }: MobileNavProps) => {
               height={34}
               alt="TrustBank logo"
             />
-            <h1 className="text-26 font-ibm-plex-serif font-bold text-black">
-              TrustBank</h1>
+            <h1 className="text-26 font-ibm-plex-serif font-bold text-black-1">TrustBank</h1>
           </Link>
           <div className="mobilenav-sheet_close w-full">
             <SheetClose asChild>
@@ -59,7 +58,8 @@ const MobileNav = ({ user }: MobileNavProps) => {
                       <Image
                         src={item.imgURL}
                         alt={item.label}
-                        fill
+                        width={20}
+                        height={20}
                         className={cn(
                           pathname === item.route ||
                             pathname.startsWith(`${item.route}/`)
@@ -69,7 +69,7 @@ const MobileNav = ({ user }: MobileNavProps) => {
                       />
                     </div>
                     <p
-                      className={cn(
+                      className={cn("text-16 font-semibold",
                         pathname === item.route ||
                           pathname.startsWith(`${item.route}/`)
                           ? "!text-white"
@@ -80,6 +80,9 @@ const MobileNav = ({ user }: MobileNavProps) => {
                     </p>
                   </Link>
                 ))}
+                <div className="absolute bottom-0 left-0 w-full text-center text-black-2 text-16">
+                  FOOTER
+                </div>
               </nav>
             </SheetClose>
           </div>
@@ -90,5 +93,4 @@ const MobileNav = ({ user }: MobileNavProps) => {
 };
 
 export default MobileNav;
-
 

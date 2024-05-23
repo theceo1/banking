@@ -21,9 +21,12 @@ import {
 import { Input } from '@/components/ui/input';
 import { CustomInput } from './CustomInput';
 import { authFormSchema } from '@/lib/utils';
+import SignIn from '@/app/(auth)/sign-in/page';
+import { useRouter } from 'next/navigation';
 
 
 const AuthForm = ({ type }: { type: string }) => {
+  const router = useRouter();
   const [user, setUser] = useState(null);
   const [isloading, setIsLoading] = useState(false);
 
@@ -37,11 +40,28 @@ const AuthForm = ({ type }: { type: string }) => {
   // 2. Define a submit handler.
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     setIsLoading(false);
-      // Call an external API (Appwrite & plaid token) endpoint to link bank accounts
-    try {
-      setIsLoading(true)
-      console.log(data)
-    } catch (error) {
+    
+      try {
+              // Call an external API (Appwrite & plaid token) endpoint to link bank accounts
+        
+          if (type === 'sign-up') {
+          const newUser = await signUp(data);
+          if (newUser) {
+            setUser(newUser);
+          }
+          }
+        }
+
+        if (type === 'sign-in') {
+          const response = await signIn({
+            email: data.email,
+            password: data.password
+        })
+
+          if (response) router.push('/');
+        }  
+    } 
+    catch (error) {
       console.log(error)
     } finally {
       setIsLoading(false)
@@ -96,6 +116,7 @@ const AuthForm = ({ type }: { type: string }) => {
                 <CustomInput control={form.control} name='lastName' label='Last Name' placeholder='Enter your last name' />
               </div>
                 <CustomInput control={form.control} name='address1' label='Address' placeholder='Enter a specific Address' />
+                <CustomInput control={form.control} name='city' label='City' placeholder='Enter a specific City' />
               <div className='flex gap-4'>
                 <CustomInput control={form.control} name='state' label='State' placeholder='Enter your state' />
                 <CustomInput control={form.control} name='zipCode' label='Zip Code' placeholder='Example: 01010' />

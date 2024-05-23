@@ -1,9 +1,17 @@
-import React from 'react'
+'use server'
 
-const user.actions = () => {
-  return (
-    <div>user.actions</div>
-  )
+export const signIn = async () => {
+  try {
+    // Datatbase call
+  } catch (error) {
+    console.error('Error', 'error');
+  }
 }
 
-export default user.actions
+export const signUp = async (userData: SignUpParams) => {
+  try {
+    // Using Apprite to create user account
+  } catch (error) {
+    console.error('Error', 'error');
+  }
+}

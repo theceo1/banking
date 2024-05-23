@@ -23,6 +23,7 @@ import { CustomInput } from './CustomInput';
 import { authFormSchema } from '@/lib/utils';
 import SignIn from '@/app/(auth)/sign-in/page';
 import { useRouter } from 'next/navigation';
+import { signIn, signUp } from '@/lib/actions/user.actions';
 
 
 const AuthForm = ({ type }: { type: string }) => {

@@ -48,8 +48,6 @@ const AuthForm = ({ type }: { type: string }) => {
     }
   };
   
-  
-
   // 3. Handle the form submission.
 
   return (

@@ -38,7 +38,7 @@ declare type User = {
   address1: string;
   city: string;
   state: string;
-  postalCode: string;
+  zipCode: string;
   dateOfBirth: string;
   ssn: string;
 };
@@ -180,14 +180,14 @@ declare interface PlaidLinkProps {
   dwollaCustomerId?: string;
 }
 
-// declare type User = sdk.Models.Document & {
-//   accountId: string;
-//   email: string;
-//   name: string;
-//   items: string[];
-//   accessToken: string;
-//   image: string;
-// };
+declare type User = sdk.Models.Document & {
+  accountId: string;
+  email: string;
+  name: string;
+  items: string[];
+  accessToken: string;
+  image: string;
+};
 
 declare interface AuthFormProps {
   type: "sign-in" | "sign-up";

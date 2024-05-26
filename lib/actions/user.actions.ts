@@ -16,22 +16,6 @@ const {
   APPWRITE_BANK_COLLECTION_ID: BANK_COLLECTION_ID,
 } = process.env;
 
-export const getUserInfo = async ({ userId }: { userId: string }) => {
-  try {
-    const { database } = await createAdminClient();
-
-    const user = await database.listDocuments(
-      DATABASE_ID!,
-      USER_COLLECTION_ID!,
-      [Query.equal('userId', [userId])]
-    )
-
-    return parseStringify(user.documents[0]);
-  } catch (error) {
-    console.log(error)
-  }
-}
-
 export const signIn = async ({ email, password }: { email: string; password: string }) => {
   try {
     const { account } = await createAdminClient();
@@ -46,7 +30,7 @@ export const signIn = async ({ email, password }: { email: string; password: str
 
     const user = await getUserInfo({ userId: session.userId }) 
 
-    return parseStringify(user);
+    return parseStringify(session);
   } catch (error) {
     console.error('Error', error);
   }
@@ -105,6 +89,34 @@ export const signUp = async ({ password, ...userData }: SignUpParams) => {
   }
 }
 
+export const logoutAccount = async () => {
+  try {
+    const { account } = await createSessionClient();
+
+    cookies().delete('appwrite-session');
+
+    await account.deleteSession('current');
+  } catch (error) {
+    return null;
+  }
+}
+
+export const getUserInfo = async ({ userId }: { userId: string }) => {
+  try {
+    const { database } = await createAdminClient();
+
+    const user = await database.listDocuments(
+      DATABASE_ID!,
+      USER_COLLECTION_ID!,
+      [Query.equal('userId', [userId])]
+    )
+
+    return parseStringify(user.documents[0]);
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export async function getLoggedInUser() {
   try {
     const { account } = await createSessionClient();
@@ -115,18 +127,6 @@ export async function getLoggedInUser() {
     return parseStringify(user);
   } catch (error) {
     console.log(error)
-    return null;
-  }
-}
-
-export const logoutAccount = async () => {
-  try {
-    const { account } = await createSessionClient();
-
-    cookies().delete('appwrite-session');
-
-    await account.deleteSession('current');
-  } catch (error) {
     return null;
   }
 }

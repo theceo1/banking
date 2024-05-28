@@ -32,55 +32,58 @@ const AuthForm = ({ type }: { type: string }) => {
 
   const formSchema = authFormSchema(type);
 
-    // 1. Define your form.
-    const form = useForm<z.infer<typeof formSchema>>({
-      resolver: zodResolver(formSchema),
-      defaultValues: {
-        email: "",
-        password: ''
-      },
-    })
-   
-    // 2. Define a submit handler.
-    const onSubmit = async (data: z.infer<typeof formSchema>) => {
-      setIsLoading(true);
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  })
+  
+  const onSubmit = async (data: z.infer<typeof formSchema>) => {
+    setIsLoading(true);
 
-      try {
-        // Sign up with Appwrite & create plaid token
-        
-        if(type === 'sign-up') {
-          const userData = {
-            firstName: data.firstName!,
-            lastName: data.lastName!,
-            address1: data.address1!,
-            city: data.city!,
-            state: data.state!,
-            postalCode: data.zipCode!,
-            dateOfBirth: data.dateOfBirth!,
-            ssn: data.ssn!,
-            email: data.email,
-            password: data.password
-          }
+    try {
+      // Sign up with Appwrite & create plain token
+      if (type === 'sign-up') {
+        const userData = {
+          firstName: data.firstName!,
+          lastName: data.lastName!,
+          address1: data.address1!,
+          city: data.city!,
+          state: data.state!,
+          zipCode: data.zipCode!,
+          dateOfBirth: data.dateOfBirth!,
+          ssn: data.ssn!,
+          email: data.email,
+          password: data.password,
+        };
 
-          const newUser = await signUp(userData);
+        const response = await signUp(userData);
 
-          setUser(newUser);
-        }
+        setUser(response);
 
-        if(type === 'sign-in') {
-          const response = await signIn({
-            email: data.email,
-            password: data.password,
-          })
-
-          if(response) router.push('/')
-        }
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setIsLoading(false);
+        // Redirect to the homepage after successful sign-up
+        router.push('/');
       }
+
+      if (type === 'sign-in') {
+        const response = await signIn({
+          email: data.email,
+          password: data.password,
+        });
+
+        if (response) {
+          // Redirect to the homepage after successful sign-in
+          router.push('/');
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
     }
+  };
 
   return (
     <section className="auth-form">
@@ -114,7 +117,7 @@ const AuthForm = ({ type }: { type: string }) => {
       </header>
       {user ? (
         <div className="flex flex-col gap-4">
-          <PlaidLink user={user} variant="primary" />
+          {/* <PlaidLink user={user} variant="primary" /> */}
         </div>
       ): (
         <>
@@ -130,11 +133,11 @@ const AuthForm = ({ type }: { type: string }) => {
                   <CustomInput control={form.control} name='city' label="City" placeholder='Enter your city' />
                   <div className="flex gap-4">
                     <CustomInput control={form.control} name='state' label="State" placeholder='Example: NY' />
-                    <CustomInput control={form.control} name='zipCode' label="Postal Code" placeholder='Example: 11101' />
+                    <CustomInput control={form.control} name='zipCode' label="Zip Code" placeholder='Example: 11101' />
                   </div>
                   <div className="flex gap-4">
                     <CustomInput control={form.control} name='dateOfBirth' label="Date of Birth" placeholder='YYYY-MM-DD' />
-                    <CustomInput control={form.control} name='ssn' label="SSN" placeholder='Example: 1234' />
+                    <CustomInput control={form.control} name='ssn' label="SSN/BVN" placeholder='Example: 1234' />
                   </div>
                 </>
               )}

@@ -52,11 +52,13 @@ const AuthForm = ({ type }: { type: string }) => {
           address1: data.address1!,
           city: data.city!,
           state: data.state!,
-          zipCode: data.zipCode!,
+          postalCode: data.zipCode!,
           dateOfBirth: data.dateOfBirth!,
           ssn: data.ssn!,
           email: data.email,
           password: data.password,
+          // name: '', 
+          // phoneNumber: '', 
         };
 
         const response = await signUp(userData);
@@ -117,7 +119,7 @@ const AuthForm = ({ type }: { type: string }) => {
       </header>
       {user ? (
         <div className="flex flex-col gap-4">
-          {/* <PlaidLink user={user} variant="primary" /> */}
+          <PlaidLink user={user} variant="primary" />
         </div>
       ): (
         <>

@@ -41,24 +41,24 @@ export const BankDropdown = ({
 
   return (
     <Select
-      defaultValue={selected.id}
-      onValueChange={(value) => handleBankChange(value)}
-    >
-      <SelectTrigger
-        className={`flex w-full bg-white gap-3 md:w-[300px] ${otherStyles}`}
-      >
-        <Image
-          src="icons/credit-card.svg"
-          width={20}
-          height={20}
-          alt="account"
-        />
-        <p className="line-clamp-1 w-full text-left">{selected.name}</p>
-      </SelectTrigger>
-      <SelectContent
-        className={`w-full bg-white md:w-[300px] ${otherStyles}`}
-        align="end"
-      >
+        defaultValue={selected.id}
+        onValueChange={(value: string) => handleBankChange(value)}
+          >
+        <SelectTrigger
+            className={`flex w-full bg-white gap-3 md:w-[300px] ${otherStyles}`}
+          >
+             <Image
+                src="icons/credit-card.svg"
+                width={20}
+                height={20}
+                alt="account"
+                />
+             <p className="line-clamp-1 w-full text-left">{selected.name}</p>
+          </SelectTrigger>
+         <SelectContent
+             className={`w-full bg-white md:w-[300px] ${otherStyles}`}
+              align="end"
+        >
         <SelectGroup>
           <SelectLabel className="py-2 font-normal text-gray-500">
             Select a bank to display

@@ -112,11 +112,11 @@ const AuthForm = ({ type }: { type: string }) => {
             </h1>
           </div>
       </header>
-      {/* {user ? ( */}
+      {user ? (
         <div className="flex flex-col gap-4">
           <PlaidLink user={user} variant="primary" />
         </div>
-      {/* ): ( */}
+      ): (
         <>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -126,8 +126,8 @@ const AuthForm = ({ type }: { type: string }) => {
                     <CustomInput control={form.control} name='firstName' label="First Name" placeholder='Enter your first name' />
                     <CustomInput control={form.control} name='lastName' label="Last Name" placeholder='Enter your first name' />
                   </div>
-                    <CustomInput control={form.control} name='address1' label="Address" placeholder='Enter your specific address' />
-                    <CustomInput control={form.control} name='city' label="City" placeholder='Enter your city' />
+                  <CustomInput control={form.control} name='address1' label="Address" placeholder='Enter your specific address' />
+                  <CustomInput control={form.control} name='city' label="City" placeholder='Enter your city' />
                   <div className="flex gap-4">
                     <CustomInput control={form.control} name='state' label="State" placeholder='Example: NY' />
                     <CustomInput control={form.control} name='postalCode' label="Postal Code" placeholder='Example: 11101' />
@@ -139,16 +139,16 @@ const AuthForm = ({ type }: { type: string }) => {
                 </>
               )}
 
-                  <CustomInput control={form.control} name='email' label="Email" placeholder='Enter your email' />
+              <CustomInput control={form.control} name='email' label="Email" placeholder='Enter your email' />
 
-                  <CustomInput control={form.control} name='password' label="Password" placeholder='Enter your password' />
+              <CustomInput control={form.control} name='password' label="Password" placeholder='Enter your password' />
 
               <div className="flex flex-col gap-4">
-                    <Button type="submit" disabled={isLoading} className="form-btn">
-                    {isLoading ? (
+                <Button type="submit" disabled={isLoading} className="form-btn">
+                  {isLoading ? (
                     <>
-                        <Loader2 size={20} className="animate-spin" /> &nbsp;
-                          Loading...
+                      <Loader2 size={20} className="animate-spin" /> &nbsp;
+                      Loading...
                     </>
                   ) : type === 'sign-in' 
                     ? 'Sign In' : 'Sign Up'}
@@ -168,7 +168,7 @@ const AuthForm = ({ type }: { type: string }) => {
             </Link>
           </footer>
         </>
-      {/* )} */}
+      )}
     </section>
   )
 }
